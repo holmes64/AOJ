@@ -7,8 +7,8 @@ int main(){
     int n, m;
     cin >> n >> m;
 
-    ll a[n][m];
-    ll b[n];
+    ll a[100][100];
+    ll b[100];
     for(int i=0; i<n; i++){
         for(int j=0; j<m; j++){
             cin >> a[i][j];
