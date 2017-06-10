@@ -36,51 +36,70 @@ class Dice{
             dice[3] = buf;
         }
 
-        void rotate_R(){
+       void rotate_R(){
             buf = dice[4];
             dice[4] = dice[2];
             dice[2] = dice[1];
             dice[1] = dice[3];
             dice[3] = buf;
         }
-};
-
-
+}; 
 
 int main(){
-    int num;
-    int upper, front;
-    string::iterator itr;
-
     Dice d;
-
+    Dice d2;
     for(int i=0; i<6; i++){
         cin >> d.dice[i];
     }
-    cin >> num;
-    for(int i=0; i<num; i++){
-        cin >> upper >> front;
-        for(int j=0; j<6; j++){
-            if(d.dice[j] == upper){
-                if(j == 0) break;
-                if(j == 1) d.north();
-                if(j == 2) d.west();
-                if(j == 3) d.east();
-                if(j == 4) d.south();
-                if(j == 5){
-                    d.north();
-                    d.north();
-                }
+    for(int i=0; i<6; i++){
+        cin >> d2.dice[i];
+    }
+    
+    for(int j=0; j<6; j++){
+        if(d.dice[0] == d2.dice[j]){
+            if(j == 0) break;
+            if(j == 1) d2.north();
+            if(j == 2) d2.west();
+            if(j == 3) d2.east();
+            if(j == 4) d2.south();
+            if(j == 5){
+                d2.north();
+                d2.north();
             }
         }
-        while(1){
-            if(front == d.dice[1]){
+    }
+    
+    int flg = 0;
+    int cnt=0;
+    for(int l=0; l<4; l++){
+        cnt=0;
+        d2.rotate_R();
+        for(int i=0; i<6; i++){
+            if(d.dice[i] == d2.dice[i]) cnt++;
+        }
+        if(cnt == 6){
+            flg = 1;
+            break;
+        }           
+    }
+    if(flg == 0){
+        for(int l=0; l<4; l++){
+            cnt=0;
+            d2.north();
+            for(int i=0; i<6; i++){
+                if(d.dice[i] == d2.dice[i]) cnt++;
+            }
+            if(cnt == 6){
+                flg = 1;
                 break;
-            }
-            d.rotate_R();
+            }           
         }
-        cout << d.dice[2] << endl;
     }
 
+    if(cnt == 6){
+        cout << "Yes" << endl;
+    }else{
+        cout << "No" << endl;
+    }
     return 0;
 }
